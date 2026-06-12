@@ -82,19 +82,32 @@ public abstract class GameCollection {
         }
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 
     public String getId() {
         return id;
     }
 
     public void searchGameByID(String gameID) {
-        Videogames testGame = new Videogames("12345", "IL pianeta", 2020, 20.20, Platform.PC, 20, Genre.ACTION);
-        String foundGame = mainColletion.stream().filter(collection -> collection.getId().equals(gameID)).map(gameCollection -> gameCollection.getId()).toString();
-        if (foundGame.isEmpty()) {
-            System.out.println("Gioco non trovato nell'archivio");
+        mainColletion.add(new Videogames("12345", "IL pianeta", 2020, 20.20, Platform.PC, 20, Genre.ACTION));
+        List<GameCollection> foundGame = mainColletion.stream().filter(collection -> collection.getId().equals(gameID)).toList();
+        if (!foundGame.isEmpty()) {
+            System.out.println("Il tuo gioco è " + foundGame.stream().map(game -> getTitle()).toString());
         } else {
-            System.out.println("Il tuo gioco è " + title);
+            System.out.println("Gioco non trovato nell'archivio");
         }
+    }
+
+    public void searchGameByPrice(double searchedPrice) {
+        List<GameCollection> filteredByPrice = mainColletion.stream().filter(gameCollection -> gameCollection.getPrice() < searchedPrice).toList();
+        if (!filteredByPrice.isEmpty()) filteredByPrice.forEach(System.out::println);
+        else System.out.println("non ho trovato giochi nella lista");
     }
 
     public void printMain() {
