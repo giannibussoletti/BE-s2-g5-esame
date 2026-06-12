@@ -1,16 +1,31 @@
 package giannibussoletti.entities;
 
-public class Boardgames extends Collection {
-    private final int numOfPlayers;
-    private final int totalGameLength;
+import java.util.ArrayList;
+import java.util.List;
 
-    public Boardgames(String title, int yearOfRelease, double price, int numOfPlayers, int totalGameLength) {
-        this.title = title;
-        this.yearRelease = yearOfRelease;
-        this.price = price;
+public class Boardgames extends Collection {
+    protected final int numOfPlayers;
+    protected final int totalGameLength;
+
+    List<Boardgames> boardgamesList = new ArrayList<>();
+
+    public Boardgames(String id, String title, int yearRelease, double price, int numOfPlayers, int totalGameLength) {
+        super(id, title, yearRelease, price);
         this.numOfPlayers = numOfPlayers;
         this.totalGameLength = totalGameLength;
 
+    }
 
+    public int getNumOfPlayers() {
+        return numOfPlayers;
+    }
+
+//    public void searchByNumOfPlayers(int numOfPlayers) {
+//mainColletion.stream()
+//    }
+
+    @Override
+    public String getId() {
+        return super.getId();
     }
 }
