@@ -68,6 +68,23 @@ public class Application {
                             gameCollection.searchGameByID(id);
                             gameCollection.printMain();
                         }
+                        case 3 -> {
+                            while (true) {
+                                System.out.println("Inserisci il prezzo massimo");
+                                if (scanner.hasNextDouble()) {
+                                    double price = scanner.nextDouble();
+                                    if (price > 0) {
+                                        gameCollection.searchGameByPrice(price);
+                                        break;
+                                    }
+                                    break;
+                                } else {
+                                    System.out.println("Valore non valido");
+                                    scanner.nextLine();
+                                }
+                            }
+
+                        }
                     }
                     break;
                 }
