@@ -1,8 +1,11 @@
 package giannibussoletti;
 
 import giannibussoletti.entities.Boardgames;
+import giannibussoletti.entities.GameCollection;
 import giannibussoletti.entities.Videogames;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Application {
@@ -13,6 +16,10 @@ public class Application {
         };
         Boardgames placeBoard = new Boardgames() {
         };
+        GameCollection gameCollection = new GameCollection() {
+        };
+        List<GameCollection> testCollection = new ArrayList<>();
+
 
         while (true) {
             System.out.println("""
@@ -26,7 +33,7 @@ public class Application {
                     0) Esci
                     """);
             while (true) {
-                if (scanner.hasNextInt())
+                if (scanner.hasNextInt()) {
                     switch (scanner.nextInt()) {
                         case 1 -> {
                             while (true) {
@@ -53,19 +60,21 @@ public class Application {
                                 }
                             }
                         }
+
+                        case 2 -> {
+                            System.out.println("Inserisci l'Id");
+                            String id = scanner.nextLine();
+                            scanner.nextLine();
+                            gameCollection.searchGameByID(id);
+                            gameCollection.printMain();
+                        }
                     }
-//                    case 2 ->
-//                    case 3 ->
-//                    case 4 ->
-//                    case 5 ->
-//                    case 6 ->
-//                    case 7 ->
-//                      case default ->
-//                    case 0 -> System.exit(0);
+                    break;
+                }
             }
         }
-
     }
-
 }
+//
+
 
