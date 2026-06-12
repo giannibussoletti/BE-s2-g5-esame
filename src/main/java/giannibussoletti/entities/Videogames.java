@@ -5,14 +5,12 @@ import giannibussoletti.enums.Platform;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Videogames extends Collection {
-    static Scanner scanner = new Scanner(System.in);
     static List<Videogames> onlyVideogames = new ArrayList<>();
-    protected final Platform platform;
-    protected final int totalGameLength;
-    protected final Genre genre;
+    protected int totalGameLength;
+    protected Genre genre;
+    protected Platform platform;
 //mainColletion.addAll(onlyVideogames);
 
 
@@ -24,60 +22,9 @@ public class Videogames extends Collection {
 
     }
 
-    public static void createVideogame() {
-        System.out.println("Aggiungiamo un nuovo gioco alla lista");
-        String gameTitle = "";
-        while (true) {
-            System.out.println("Dimmi il titolo:");
-            if (scanner.hasNextLine()) {
-                gameTitle = scanner.nextLine();
-                break;
-            } else if (scanner.hasNextDouble()) {
-                gameTitle = Double.toString(scanner.nextDouble());
-                break;
-            } else {
-                System.out.println("Titolo non valido");
-                scanner.nextLine();
-            }
-        }
-
-        int gameYearRelease = 0;
-        while (true) {
-            System.out.println("In che anno è stato rilasciato?");
-            if (scanner.hasNextInt()) {
-                gameYearRelease = scanner.nextInt();
-                if (gameYearRelease < 1971 || gameYearRelease > 2030) {
-                    System.out.println("Anno non valido");
-                    scanner.nextLine();
-                } else {
-                    scanner.nextLine();
-                    break;
-                }
-            } else {
-                System.out.println("Anno non valido, inserire un valore valido");
-                scanner.nextLine();
-            }
-        }
-
-        double gamePrice = 0.0;
-        while (true) {
-            System.out.println("Quanto costa?");
-            if (scanner.hasNextDouble()) {
-                gamePrice = scanner.nextDouble();
-                if (gamePrice <= 0) {
-                    System.out.println("Non puoi inserire un valore negativo");
-                    scanner.nextLine();
-                } else {
-                    scanner.nextLine();
-                    break;
-                }
-            } else {
-                System.out.println("Valore non valido");
-                scanner.nextLine();
-            }
-        }
-
-        Platform gamePlatform = null;
+    @Override
+    public void createGame() {
+        super.createGame();
         while (true) {
             System.out.println("Su quale piattaforma è stato rilasciato? Usa i numeri indicati");
             System.out.println("""
@@ -91,12 +38,12 @@ public class Videogames extends Collection {
                 int choice = scanner.nextInt();
                 if (choice <= 6 && choice >= 1) {
                     switch (choice) {
-                        case 1 -> gamePlatform = Platform.PC;
-                        case 2 -> gamePlatform = Platform.XBOX;
-                        case 3 -> gamePlatform = Platform.SWITCH;
-                        case 4 -> gamePlatform = Platform.PLAYSTATION;
-                        case 5 -> gamePlatform = Platform.MULTIPLE;
-                        case 6 -> gamePlatform = Platform.ALTRE_PIATTAFORME;
+                        case 1 -> this.platform = Platform.PC;
+                        case 2 -> this.platform = Platform.XBOX;
+                        case 3 -> this.platform = Platform.SWITCH;
+                        case 4 -> this.platform = Platform.PLAYSTATION;
+                        case 5 -> this.platform = Platform.MULTIPLE;
+                        case 6 -> this.platform = Platform.ALTRE_PIATTAFORME;
                     }
                     scanner.nextLine();
                     break;
@@ -111,12 +58,11 @@ public class Videogames extends Collection {
             }
         }
 
-        int length = 0;
         while (true) {
             if (scanner.hasNextInt()) {
-                length = scanner.nextInt();
+                this.totalGameLength = scanner.nextInt();
                 scanner.nextLine();
-                if (length > 0) break;
+                if (this.totalGameLength > 0) break;
                 else {
                     System.out.println("Il valore deve essere almeno 1");
                     scanner.nextLine();
@@ -143,15 +89,15 @@ public class Videogames extends Collection {
                 int choice = scanner.nextInt();
                 if (choice <= 9 && choice >= 1) {
                     switch (choice) {
-                        case 1 -> gameGenre = Genre.ACTION;
-                        case 2 -> gameGenre = Genre.HORROR;
-                        case 3 -> gameGenre = Genre.COZY;
-                        case 4 -> gameGenre = Genre.PUZZLE;
-                        case 5 -> gameGenre = Genre.RPG;
-                        case 6 -> gameGenre = Genre.JRPG;
-                        case 7 -> gameGenre = Genre.STEALTH;
-                        case 8 -> gameGenre = Genre.FIRST_PERSON_SHOOTER;
-                        case 9 -> gameGenre = Genre.MMO;
+                        case 1 -> this.genre = Genre.ACTION;
+                        case 2 -> this.genre = Genre.HORROR;
+                        case 3 -> this.genre = Genre.COZY;
+                        case 4 -> this.genre = Genre.PUZZLE;
+                        case 5 -> this.genre = Genre.RPG;
+                        case 6 -> this.genre = Genre.JRPG;
+                        case 7 -> this.genre = Genre.STEALTH;
+                        case 8 -> this.genre = Genre.FIRST_PERSON_SHOOTER;
+                        case 9 -> this.genre = Genre.MMO;
                     }
                     break;
 
@@ -165,10 +111,9 @@ public class Videogames extends Collection {
 
             }
         }
-
-        onlyVideogames.add(new Videogames("id", gameTitle, gameYearRelease, gamePrice, gamePlatform, length, gameGenre));
-        onlyVideogames.forEach(System.out::println);
+        onlyVideogames.add(new Videogames("id", this.title, this.yearRelease, this.price, this.platform, this.totalGameLength, this.genre));<
     }
+
 
     @Override
     public String toString() {
