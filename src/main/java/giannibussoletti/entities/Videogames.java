@@ -3,15 +3,10 @@ package giannibussoletti.entities;
 import giannibussoletti.enums.Genre;
 import giannibussoletti.enums.Platform;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class Videogames extends Collection {
-    static List<Videogames> onlyVideogames = new ArrayList<>();
+public class Videogames extends GameCollection {
     protected int totalGameLength;
     protected Genre genre;
     protected Platform platform;
-//mainColletion.addAll(onlyVideogames);
 
 
     public Videogames(String id, String title, int yearRelease, double price, Platform platform, int totalGameLength, Genre genre) {
@@ -21,6 +16,11 @@ public class Videogames extends Collection {
         this.genre = genre;
 
     }
+
+    public Videogames() {
+        
+    }
+
 
     @Override
     public void createGame() {
@@ -75,15 +75,16 @@ public class Videogames extends Collection {
         while (true) {
             System.out.println("Quale è il suo genere principale? Usa i numeri indicati");
             System.out.println(
-                    "1) ACTION,\n" +
-                            "2) HORROR,\n" +
-                            "3) COZY,\n" +
-                            "4) PUZZLE,\n" +
-                            "5) RPG,\n" +
-                            "6) JRPG,\n" +
-                            "7) STEALTH,\n" +
-                            "8) FIRST_PERSON_SHOOTER,\n" +
-                            "9) MMO"
+                    """
+                            1) ACTION,
+                            2) HORROR,
+                            3) COZY,
+                            4) PUZZLE,
+                            5) RPG,
+                            6) JRPG,
+                            7) STEALTH,
+                            8) FIRST_PERSON_SHOOTER,
+                            9) MMO"""
             );
             if (scanner.hasNextInt()) {
                 int choice = scanner.nextInt();
@@ -110,8 +111,20 @@ public class Videogames extends Collection {
                 scanner.nextLine();
 
             }
+
+
         }
-        onlyVideogames.add(new Videogames("id", this.title, this.yearRelease, this.price, this.platform, this.totalGameLength, this.genre));<
+
+        while (true) {
+            long randomIdSeed = random.nextLong();
+            String iDChecker = mainColletion.stream().filter(gameCollection -> gameCollection.id.equals(randomIdSeed)).toString();
+            if (iDChecker.isEmpty()) {
+                this.id = Long.toString(randomIdSeed);
+                break;
+            }
+        }
+        mainColletion.add(new Videogames(this.id, this.title, this.yearRelease, this.price, this.platform, this.totalGameLength, this.genre));
+
     }
 
 

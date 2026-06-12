@@ -2,23 +2,29 @@ package giannibussoletti.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
-public abstract class Collection {
+public abstract class GameCollection {
     static Scanner scanner = new Scanner(System.in);
+    static List<GameCollection> mainColletion = new ArrayList<>();
+    static Random random = new Random();
     protected String id;
     protected String title;
     protected int yearRelease;
     protected double price;
-    List<Collection> mainColletion = new ArrayList<>();
 
 
-    public Collection(String id, String title, int yearRelease, double price) {
+    public GameCollection(String id, String title, int yearRelease, double price) {
         this.id = id;
         this.title = title;
         this.yearRelease = yearRelease;
         this.price = price;
     }
+
+    public GameCollection() {
+    }
+
 
     public void createGame() {
         System.out.println("Aggiungiamo un nuovo gioco alla lista");
@@ -36,7 +42,6 @@ public abstract class Collection {
                 scanner.nextLine();
             }
         }
-
 
         while (true) {
             System.out.println("In che anno è stato rilasciato?");
