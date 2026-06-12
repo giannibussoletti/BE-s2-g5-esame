@@ -1,5 +1,8 @@
 package giannibussoletti.entities;
 
+import giannibussoletti.enums.Genre;
+import giannibussoletti.enums.Platform;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -85,12 +88,17 @@ public abstract class GameCollection {
     }
 
     public void searchGameByID(String gameID) {
-        String foundGame = mainColletion.stream().filter(collection -> collection.getId().equals(gameID)).toString();
+        Videogames testGame = new Videogames("12345", "IL pianeta", 2020, 20.20, Platform.PC, 20, Genre.ACTION);
+        String foundGame = mainColletion.stream().filter(collection -> collection.getId().equals(gameID)).map(gameCollection -> gameCollection.getId()).toString();
         if (foundGame.isEmpty()) {
             System.out.println("Gioco non trovato nell'archivio");
         } else {
             System.out.println("Il tuo gioco è " + title);
         }
+    }
+
+    public void printMain() {
+        mainColletion.forEach(System.out::println);
     }
 
     @Override
