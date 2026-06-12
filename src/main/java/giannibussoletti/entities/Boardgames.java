@@ -3,7 +3,7 @@ package giannibussoletti.entities;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Boardgames extends Collection {
+public class Boardgames extends GameCollection {
     static List<Boardgames> boardgamesList = new ArrayList<>();
     protected int numOfPlayers;
     protected int totalGameLength;
@@ -12,22 +12,20 @@ public class Boardgames extends Collection {
         super(id, title, yearRelease, price);
         this.numOfPlayers = numOfPlayers;
         this.totalGameLength = totalGameLength;
+    }
 
+    public Boardgames() {
+        
     }
 
     public int getNumOfPlayers() {
         return numOfPlayers;
     }
 
-//    public void searchByNumOfPlayers(int numOfPlayers) {
-//mainColletion.stream()
-//    }
-
 
     @Override
     public void createGame() {
         super.createGame();
-
 
         while (true) {
             System.out.println("Quale è il numero minimo di giocatori? (espressi in numeri)");
@@ -51,7 +49,16 @@ public class Boardgames extends Collection {
             }
         }
 
-        boardgamesList.add(new Boardgames("id", this.title, this.yearRelease, this.price, this.numOfPlayers, this.totalGameLength));
+        while (true) {
+            long randomIdSeed = random.nextLong();
+            String iDChecker = mainColletion.stream().filter(gameCollection -> gameCollection.id.equals(randomIdSeed)).toString();
+            if (iDChecker.isEmpty()) {
+                this.id = Long.toString(randomIdSeed);
+                break;
+            }
+        }
+
+        mainColletion.add(new Boardgames("id", this.title, this.yearRelease, this.price, this.numOfPlayers, this.totalGameLength));
     }
 
     @Override
