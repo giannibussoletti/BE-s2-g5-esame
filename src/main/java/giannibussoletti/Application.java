@@ -11,6 +11,7 @@ import java.util.Scanner;
 public class Application {
 
     public static void main(String[] args) {
+        List<GameCollection> mainColletion = new ArrayList<>();
         Scanner scanner = new Scanner(System.in);
         Videogames placeVideo = new Videogames() {
         };
@@ -18,7 +19,6 @@ public class Application {
         };
         GameCollection gameCollection = new GameCollection() {
         };
-        List<GameCollection> testCollection = new ArrayList<>();
 
 
         while (true) {
@@ -65,7 +65,7 @@ public class Application {
                             System.out.println("Inserisci l'Id");
                             String id = scanner.nextLine();
                             scanner.nextLine();
-                            gameCollection.searchGameByID(id);
+                            gameCollection.searchGameByID(mainColletion, id);
                             gameCollection.printMain();
                         }
                         case 3 -> {
@@ -85,6 +85,7 @@ public class Application {
                             }
 
                         }
+                        case 0 -> System.exit(0);
                     }
                     break;
                 }
@@ -92,6 +93,4 @@ public class Application {
         }
     }
 }
-//
-
 
