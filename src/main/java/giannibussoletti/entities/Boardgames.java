@@ -15,7 +15,7 @@ public class Boardgames extends GameCollection {
     }
 
     public Boardgames() {
-        
+
     }
 
     public int getNumOfPlayers() {
@@ -51,14 +51,12 @@ public class Boardgames extends GameCollection {
 
         while (true) {
             long randomIdSeed = random.nextLong();
-            String iDChecker = mainColletion.stream().filter(gameCollection -> gameCollection.id.equals(randomIdSeed)).toString();
+            String iDChecker = mainCollection.stream().filter(gameCollection -> gameCollection.id.equals(randomIdSeed)).toString();
             if (iDChecker.isEmpty()) {
                 this.id = Long.toString(randomIdSeed);
                 break;
             }
         }
-
-        mainColletion.add(new Boardgames("id", this.title, this.yearRelease, this.price, this.numOfPlayers, this.totalGameLength));
     }
 
     @Override

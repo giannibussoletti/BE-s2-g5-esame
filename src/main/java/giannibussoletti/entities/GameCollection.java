@@ -1,22 +1,17 @@
 package giannibussoletti.entities;
 
-import giannibussoletti.enums.Genre;
-import giannibussoletti.enums.Platform;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public abstract class GameCollection {
     static Scanner scanner = new Scanner(System.in);
-    static List<GameCollection> mainColletion = new ArrayList<>();
     static Random random = new Random();
+    //    static List<GameCollection> mainCollection = new ArrayList<>();
     protected String id;
     protected String title;
     protected int yearRelease;
     protected double price;
-
 
     public GameCollection(String id, String title, int yearRelease, double price) {
         this.id = id;
@@ -95,23 +90,22 @@ public abstract class GameCollection {
     }
 
     public void searchGameByID(String gameID) {
-        mainColletion.add(new Videogames("12345", "IL pianeta", 2020, 20.20, Platform.PC, 20, Genre.ACTION));
-        List<GameCollection> foundGame = mainColletion.stream().filter(collection -> collection.getId().equals(gameID)).toList();
+        String foundGame = mainCollection.stream().filter(gameCollection -> gameCollection.getId().equals(gameID)).limit(1).map(GameCollection::getTitle).toString();
         if (!foundGame.isEmpty()) {
-            System.out.println("Il tuo gioco è " + foundGame.stream().map(game -> getTitle()).toString());
+            System.out.println(foundGame);
         } else {
             System.out.println("Gioco non trovato nell'archivio");
         }
     }
 
     public void searchGameByPrice(double searchedPrice) {
-        List<GameCollection> filteredByPrice = mainColletion.stream().filter(gameCollection -> gameCollection.getPrice() < searchedPrice).toList();
+        List<GameCollection> filteredByPrice = mainCollection.stream().filter(gameCollection -> gameCollection.getPrice() < searchedPrice).toList();
         if (!filteredByPrice.isEmpty()) filteredByPrice.forEach(System.out::println);
         else System.out.println("non ho trovato giochi nella lista");
     }
 
     public void printMain() {
-        mainColletion.forEach(System.out::println);
+        mainCollection.forEach(System.out::println);
     }
 
     @Override
